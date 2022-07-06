@@ -6,7 +6,7 @@ import { IProblem, ProblemState } from "../shared";
 
 export class LeetCodeNode {
 
-    constructor(private data: IProblem, private isProblemNode: boolean = true) { }
+    constructor(protected data: IProblem, private isProblemNode: boolean = true) { }
 
     public get locked(): boolean {
         return this.data.locked;
@@ -47,6 +47,10 @@ export class LeetCodeNode {
         return this.isProblemNode;
     }
 
+    public get dataClone(): IProblem {
+        return Object.assign({}, this.data)
+    }
+
     public get previewCommand(): Command {
         return {
             title: "Preview Problem",
@@ -67,5 +71,11 @@ export class LeetCodeNode {
             query: `difficulty=${this.difficulty}`,
         });
     }
+}
 
+export class LeetCodeDailyNode extends LeetCodeNode {
+
+    constructor(node: LeetCodeNode, public date: Date) {
+        super(node.dataClone);
+    }
 }

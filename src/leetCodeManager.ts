@@ -16,11 +16,15 @@ class LeetCodeManager extends EventEmitter {
     private userStatus: UserStatus;
     private readonly successRegex: RegExp = /(?:.*)Successfully .*login as (.*)/i;
     private readonly failRegex: RegExp = /.*\[ERROR\].*/i;
-
+    private context : vscode.ExtensionContext;
     constructor() {
         super();
         this.currentUser = undefined;
         this.userStatus = UserStatus.SignedOut;
+    }
+
+    public initialize(context:vscode.ExtensionContext){
+        this.context = context;
     }
 
     public async getLoginStatus(): Promise<void> {
@@ -130,6 +134,9 @@ class LeetCodeManager extends EventEmitter {
                 if (!pwd) {
                     childProc.kill();
                     return resolve(undefined);
+                }
+                if(isByCookie){
+                    this.context.globalState.update("cookie", pwd);
                 }
                 childProc.stdin?.write(`${pwd}\n`);
             });

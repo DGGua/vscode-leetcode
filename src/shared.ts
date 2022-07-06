@@ -70,6 +70,23 @@ export enum Endpoint {
     LeetCodeCN = "leetcode-cn",
 }
 
+export interface DailyProblem {
+    date: string,
+    question: {
+        questionFrontendId: string
+        title: string
+        titleSlug: string
+        translatedTitle: string
+    }
+    userStatus: string
+}
+
+export interface DailyProblemSet {
+    data: {
+        dailyQuestionRecords: DailyProblem[]
+    }
+}
+
 export interface IProblem {
     isFavorite: boolean;
     locked: boolean;
@@ -95,6 +112,7 @@ export const defaultProblem: IProblem = {
 };
 
 export enum Category {
+    Daily = "Daily",
     All = "All",
     Difficulty = "Difficulty",
     Tag = "Tag",

@@ -2,17 +2,23 @@
 // Licensed under the MIT license.
 
 import * as _ from "lodash";
-import { Disposable } from "vscode";
+import { Disposable, ExtensionContext } from "vscode";
 import * as list from "../commands/list";
 import { getSortingStrategy } from "../commands/plugin";
 import { Category, defaultProblem, ProblemState, SortingStrategy } from "../shared";
 import { shouldHideSolvedProblem } from "../utils/settingUtils";
-import { LeetCodeNode } from "./LeetCodeNode";
+import { LeetCodeDailyNode, LeetCodeNode } from "./LeetCodeNode";
 
 class ExplorerNodeManager implements Disposable {
     private explorerNodeMap: Map<string, LeetCodeNode> = new Map<string, LeetCodeNode>();
+    private dailyProblemMap: Map<Date, LeetCodeNode> = new Map<Date, LeetCodeNode>();
+    private context: ExtensionContext;
     private companySet: Set<string> = new Set<string>();
     private tagSet: Set<string> = new Set<string>();
+
+    public initialize(context: ExtensionContext) {
+        this.context = context;
+    }
 
     public async refreshCache(): Promise<void> {
         this.dispose();
@@ -29,10 +35,26 @@ class ExplorerNodeManager implements Disposable {
                 this.tagSet.add(tag);
             }
         }
+        for (const dailyProblem of await list.listDailyProblems(this.context)) {
+            const { date: dateStr, question } = dailyProblem
+            const [year, month, day] = dateStr.split("-").map(s => Number.parseInt(s));
+            const node = this.explorerNodeMap.get(question.questionFrontendId);
+            if (!node) {
+                continue;
+            }
+            const date = new Date(year, month, day);
+            this.dailyProblemMap.set(date, new LeetCodeDailyNode(node, date));
+        }
     }
 
     public getRootNodes(): LeetCodeNode[] {
         return [
+            Array.from(this.dailyProblemMap.entries())
+                .sort((a, b) => b[0].getTime() - a[0].getTime())[0][1],
+            new LeetCodeNode(Object.assign({}, defaultProblem, {
+                id: Category.Daily,
+                name: Category.Daily,
+            }), false),
             new LeetCodeNode(Object.assign({}, defaultProblem, {
                 id: Category.All,
                 name: Category.All,
@@ -54,6 +76,12 @@ class ExplorerNodeManager implements Disposable {
                 name: Category.Favorite,
             }), false),
         ];
+    }
+
+    public getDailyNodes(): LeetCodeNode[] {
+        return Array.from(this.dailyProblemMap.entries())
+            .sort((a, b) => b[0].getTime() - a[0].getTime())
+            .map(pair => pair[1]);
     }
 
     public getAllNodes(): LeetCodeNode[] {

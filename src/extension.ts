@@ -37,6 +37,8 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
         });
 
         leetCodeTreeDataProvider.initialize(context);
+        leetCodeManager.initialize(context);
+        explorerNodeManager.initialize(context);
 
         context.subscriptions.push(
             leetCodeStatusBarController,
