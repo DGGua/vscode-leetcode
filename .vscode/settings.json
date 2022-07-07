@@ -10,5 +10,12 @@
         ".vscode-test": true
     },
     "tslint.autoFixOnSave": true,
-    "tslint.ignoreDefinitionFiles": true
+    "tslint.ignoreDefinitionFiles": true,
+    "editor.defaultFormatter": null,
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
 }

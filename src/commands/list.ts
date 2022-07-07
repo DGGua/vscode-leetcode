@@ -1,10 +1,11 @@
 // Copyright (c) jdneo. All rights reserved.
 // Licensed under the MIT license.
 
+import axios from "axios"
 import * as vscode from "vscode";
 import { leetCodeExecutor } from "../leetCodeExecutor";
 import { leetCodeManager } from "../leetCodeManager";
-import { IProblem, ProblemState, UserStatus } from "../shared";
+import { DailyProblem, DailyProblemSet, IProblem, ProblemState, UserStatus } from "../shared";
 import * as settingUtils from "../utils/settingUtils";
 import { DialogType, promptForOpenOutputChannel } from "../utils/uiUtils";
 
@@ -42,6 +43,32 @@ export async function listProblems(): Promise<IProblem[]> {
     } catch (error) {
         await promptForOpenOutputChannel("Failed to list problems. Please open the output channel for details.", DialogType.error);
         return [];
+    }
+}
+
+export async function listDailyProblems(context: vscode.ExtensionContext): Promise<DailyProblem[]> {
+    try {
+        const cookie = context.globalState.get<string>("cookie")
+        if (leetCodeManager.getStatus() === UserStatus.SignedOut || cookie === undefined) {
+            return [];
+        }
+        const date = new Date();
+        const res = await axios.post<DailyProblemSet>(
+            "https://leetcode.cn/graphql/", {
+            "query": "\n    query dailyQuestionRecords($year: Int!, $month: Int!) {\n  dailyQuestionRecords(year: $year, month: $month) {\n    date\n    userStatus\n    question {\n      questionFrontendId\n      title\n      titleSlug\n      translatedTitle\n    }\n  }\n}\n    ",
+            "variables": {
+                "year": date.getFullYear(),
+                "month": date.getMonth() + 1,
+            }
+        }, {
+            headers: {
+                cookie,
+            },
+        })
+        return res.data.data.dailyQuestionRecords;
+    } catch (e) {
+        await promptForOpenOutputChannel("Failed to list daily Problems. Please open the output channel for details.", DialogType.error);
+        return []
     }
 }
 

@@ -52,6 +52,18 @@ export async function pickOne(): Promise<void> {
     await showProblemInternal(randomProblem);
 }
 
+export async function pickToday(context: vscode.ExtensionContext): Promise<void> {
+    const dailyProblems = await list.listDailyProblems(context);
+    const problemToday = dailyProblems.find(problem => Number.parseInt(problem.date.split("-")[2]) == new Date().getDate())
+    const problems: IProblem[] = await list.listProblems();
+    const targetProblem = problems.find(problem => problem.id == problemToday?.question.questionFrontendId)
+    if (!targetProblem) {
+        vscode.window.showErrorMessage("Get problem today failed.");
+        return;
+    }
+    await showProblemInternal(targetProblem)
+}
+
 export async function showProblem(node?: LeetCodeNode): Promise<void> {
     if (!node) {
         return;

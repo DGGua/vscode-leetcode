@@ -3,6 +3,12 @@ All notable changes to the "leetcode" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.19.0]
+
+### Added
+- Add `Daily` category for current month daily problems.
+- Add `pickDaily` command for quickly pick daily command.
+
 ## [0.18.0]
 ### Added
 - Add `star` command in shortcuts [PR#601](https://github.com/LeetCode-OpenSource/vscode-leetcode/pull/601)

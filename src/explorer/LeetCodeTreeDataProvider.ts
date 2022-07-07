@@ -7,7 +7,7 @@ import * as vscode from "vscode";
 import { leetCodeManager } from "../leetCodeManager";
 import { Category, defaultProblem, ProblemState } from "../shared";
 import { explorerNodeManager } from "./explorerNodeManager";
-import { LeetCodeNode } from "./LeetCodeNode";
+import { LeetCodeDailyNode, LeetCodeNode } from "./LeetCodeNode";
 
 export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCodeNode> {
 
@@ -46,7 +46,11 @@ export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCod
         }
 
         return {
-            label: element.isProblem ? `[${element.id}] ${element.name}` : element.name,
+            label: element.isProblem ?
+                `[${element instanceof LeetCodeDailyNode ?
+                    `${element.date.getMonth()}-${element.date.getDate()}` :
+                    element.id}] ${element.name}` :
+                element.name,
             tooltip: this.getSubCategoryTooltip(element),
             collapsibleState: element.isProblem ? vscode.TreeItemCollapsibleState.None : vscode.TreeItemCollapsibleState.Collapsed,
             iconPath: this.parseIconPathFromProblemState(element),
@@ -69,6 +73,8 @@ export class LeetCodeTreeDataProvider implements vscode.TreeDataProvider<LeetCod
             return explorerNodeManager.getRootNodes();
         } else {
             switch (element.id) { // First-level
+                case Category.Daily:
+                    return explorerNodeManager.getDailyNodes();
                 case Category.All:
                     return explorerNodeManager.getAllNodes();
                 case Category.Favorite:
