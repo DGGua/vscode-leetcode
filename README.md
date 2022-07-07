@@ -1,3 +1,13 @@
+# 🐱🐱🐱 this repository is forked from [vscode-leetcode](https://github.com/LeetCode-OpenSource/vscode-leetcode)
+
+This repository is forked for personal needs. I do not want merge it to the origin repository, for my irregular development. I made some features, if you like, please give us a ⭐Star!
+
+### Features
+
+- daily problems. easily use command or choose from sidebar to get problem today!
+
+below are the origin README.md
+
 # LeetCode
 
 > Solve LeetCode problems in VS Code
@@ -23,6 +33,7 @@
 - English Document | [中文文档](https://github.com/LeetCode-OpenSource/vscode-leetcode/blob/master/docs/README_zh-CN.md)
 
 ## ❗️ Attention ❗️- Workaround to login to LeetCode endpoint
+
 > Note: If you are using `leetcode.cn`, you can just ignore this section.
 
 Recently we observed that [the extension cannot login to leetcode.com endpoint anymore](https://github.com/LeetCode-OpenSource/vscode-leetcode/issues/478). The root cause of this issue is that leetcode.com changed its login mechanism and so far there is no ideal way to fix that issue.
@@ -32,9 +43,10 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 > Note: If you want to use third-party login(**Recommended**), please make sure your account has been connected to the third-party. If you want to use `Cookie` login, click [here](https://github.com/LeetCode-OpenSource/vscode-leetcode/issues/478#issuecomment-564757098) to see the steps.
 
 ## Requirements
+
 - [VS Code 1.30.1+](https://code.visualstudio.com/)
 - [Node.js 10+](https://nodejs.org)
-    > NOTE: Please make sure that `Node` is in your `PATH` environment variable. You can also use the setting `leetcode.nodePath` to specify the location of your `Node.js` executable.
+  > NOTE: Please make sure that `Node` is in your `PATH` environment variable. You can also use the setting `leetcode.nodePath` to specify the location of your `Node.js` executable.
 
 ## Quick Start
 
@@ -43,6 +55,7 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 ## Features
 
 ### Sign In/Out
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/sign_in.png" alt="Sign in" />
 </p>
@@ -52,9 +65,11 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 - You can also use the following command to sign in/out:
   - **LeetCode: Sign in**
   - **LeetCode: Sign out**
+
 ---
 
 ### Switch Endpoint
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/endpoint.png" alt="Switch Endpoint" />
 </p>
@@ -62,6 +77,7 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 - By clicking the button ![btn_endpoint](https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/btn_endpoint.png) at the **explorer's navigation bar**, you can switch between different endpoints.
 
 - The supported endpoints are:
+
   - **leetcode.com**
   - **leetcode.cn**
 
@@ -70,6 +86,7 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 ---
 
 ### Pick a Problem
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/pick_problem.png" alt="Pick a Problem" />
 </p>
@@ -77,7 +94,7 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 - Directly click on the problem or right click the problem in the `LeetCode Explorer` and select `Preview Problem` to see the problem description.
 - Select `Show Problem` to directly open the file with the problem description.
 
-  > Note：You can specify the path of the workspace folder to store the problem files by updating the setting `leetcode.workspaceFolder`. The default value is：**$HOME/.leetcode/**.
+  > Note：You can specify the path of the workspace folder to store the problem files by updating the setting `leetcode.workspaceFolder`. The default value is：**\$HOME/.leetcode/**.
 
   > You can specify whether including the problem description in comments or not by updating the setting `leetcode.showCommentDescription`.
 
@@ -86,11 +103,13 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 ---
 
 ### Editor Shortcuts
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/shortcuts.png" alt="Editor Shortcuts" />
 </p>
 
 - The extension supports 5 editor shortcuts (aka Code Lens):
+
   - `Submit`: Submit your answer to LeetCode.
   - `Test`: Test your answer with customized test cases.
   - `Star/Unstar`: Star or unstar the current problem.
@@ -102,6 +121,7 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 ---
 
 ### Search problems by Keywords
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/search.png" alt="Search problems by Keywords" />
 </p>
@@ -111,12 +131,12 @@ Thanks for [@yihong0618](https://github.com/yihong0618) provided a workaround wh
 ---
 
 ### Manage Session
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/LeetCode-OpenSource/vscode-leetcode/master/docs/imgs/session.png" alt="Manage Session" />
 </p>
 
 - To manage your LeetCode sessions, just clicking the `LeetCode: ***` at the bottom of the status bar. You can **switch** between sessions or **create**, **delete** a session.
-
 
 ## Settings
 

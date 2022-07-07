@@ -12,9 +12,8 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/LeetCode-OpenSource/vscode-leetcode"
+        "url": "https://github.com/dggua/vscode-leetcode"
     },
-    "homepage": "https://github.com/LeetCode-OpenSource/vscode-leetcode/blob/master/README.md",
     "categories": [
         "Other",
         "Snippets"
@@ -715,7 +714,8 @@
         "vscode:prepublish": "npm run compile",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
-        "lint": "tslint --project tsconfig.json -e src/*.d.ts -t verbose"
+        "lint": "tslint --project tsconfig.json -e src/*.d.ts -t verbose",
+        "publish": "vsce package"
     },
     "devDependencies": {
         "@types/fs-extra": "^9.0.11",
