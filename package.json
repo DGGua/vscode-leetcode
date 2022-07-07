@@ -715,7 +715,7 @@
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
         "lint": "tslint --project tsconfig.json -e src/*.d.ts -t verbose",
-        "publish": "vsce package"
+        "build": "vsce package"
     },
     "devDependencies": {
         "@types/fs-extra": "^9.0.11",
