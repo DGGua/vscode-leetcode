@@ -47,14 +47,19 @@ class ExplorerNodeManager implements Disposable {
         }
     }
 
-    public getRootNodes(): LeetCodeNode[] {
-        return [
-            Array.from(this.dailyProblemMap.entries())
-                .sort((a, b) => b[0].getTime() - a[0].getTime())[0][1],
-            new LeetCodeNode(Object.assign({}, defaultProblem, {
-                id: Category.Daily,
-                name: Category.Daily,
-            }), false),
+    public getRootNodes(): Array<LeetCodeNode> {
+        const dailyProblemList = Array.from(this.dailyProblemMap.entries())
+            .sort((a, b) => b[0].getTime() - a[0].getTime())
+
+        const result = new Array<LeetCodeNode>();
+        if (dailyProblemList.length > 0) {
+            result.push(dailyProblemList[0][1],
+                new LeetCodeNode(Object.assign({}, defaultProblem, {
+                    id: Category.Daily,
+                    name: Category.Daily,
+                }), false))
+        }
+        result.push(
             new LeetCodeNode(Object.assign({}, defaultProblem, {
                 id: Category.All,
                 name: Category.All,
@@ -75,7 +80,8 @@ class ExplorerNodeManager implements Disposable {
                 id: Category.Favorite,
                 name: Category.Favorite,
             }), false),
-        ];
+        )
+        return result;
     }
 
     public getDailyNodes(): LeetCodeNode[] {
@@ -178,6 +184,7 @@ class ExplorerNodeManager implements Disposable {
 
     public dispose(): void {
         this.explorerNodeMap.clear();
+        this.dailyProblemMap.clear();
         this.companySet.clear();
         this.tagSet.clear();
     }
